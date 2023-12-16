@@ -1,4 +1,4 @@
-To Consume API on #Blazor Webassembly steps as below (Using DotNet 8.0 versions for all)
+<img width="919" alt="image" src="https://github.com/nammadhu/POC.BlazorWasmApiConsumptions/assets/3640748/313987a3-7733-4a12-aa4c-b64b5eaa1f32">To Consume API on #Blazor Webassembly steps as below (Using DotNet 8.0 versions for all)
 
 Create Blazor Wasm with No Authentication
 Create Web Api with No Authentication
@@ -93,5 +93,15 @@ Final result as like below,
 
 
 
+
+
+Note: 
+1>For working on local environment wrt Azure functions,it needs some extra permission to run. Usually in many corporate provided systems its not allowed to run since its not trucsted properly.So try for suitable respective solution .
+2> For working locally,its better to maintain configurations is separate config files & not to check in . ANd always preferred to not check in this file. Still if you want to check in change on gitignore to include.
+Like Developement.settings.json   or local.settings.json
+![image](https://github.com/nammadhu/POC.BlazorWasmApiConsumptions/assets/3640748/7e2a52df-2777-4a83-ab3e-d3d43ac4c24a)
+
+3>For enabling CORS on local make it like this
+<img width="919" alt="image" src="https://github.com/nammadhu/POC.BlazorWasmApiConsumptions/assets/3640748/9f7cc3f5-9a29-4abc-83f8-c9b08bf52b5f">
 
 
