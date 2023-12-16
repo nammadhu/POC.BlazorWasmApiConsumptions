@@ -60,3 +60,6 @@ Then
 <img width="751" alt="image" src="https://github.com/nammadhu/POC.BlazorWasmApiConsumptions/assets/3640748/1e01f795-d95b-4462-bcdb-b75df824ad61">
 
 Then Run & enjoy further as per the need
+
+Continuation of this thread are as below,
+https://stackoverflow.com/questions/68585377/access-to-xmlhttprequest-at-https-login-microsoftonline-com-has-been-blocked-b
