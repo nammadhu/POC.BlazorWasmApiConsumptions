@@ -13,6 +13,7 @@
     }
 else
     {
+    <h3>Response from API</h3>
     <table class="table">
         <thead>
             <tr>
@@ -36,7 +37,15 @@ else
     </table>
     }
 
+@if (!string.IsNullOrEmpty(message))
+    {
+    <h3>Response from Azure function</h3>
+    <label>@message</label>
+    }
+
+
 @code {
+    private string message = "";
     private WeatherForecast[]? forecasts;
 
     protected override async Task OnInitializedAsync()
@@ -44,6 +53,11 @@ else
         var items = await Http.GetFromJsonAsync<WeatherForecast[]>("https://localhost:7298/WeatherForecast");
         if (items != null)
             forecasts = items;//await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
+
+
+        var funcUrl = "http://localhost:7253/api/Function1";
+        Console.WriteLine($"Http.GetAsync :{await Http.GetAsync(funcUrl)}");//This will not print content,it just shows 200.success/failure kind of details
+        message = await Http.GetStringAsync(funcUrl);
         }
 
     public class WeatherForecast
