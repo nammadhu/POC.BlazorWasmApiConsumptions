@@ -1,4 +1,6 @@
 
+using CosmosDb;
+
 namespace ApiSource
     {
     public class Program
@@ -25,6 +27,8 @@ namespace ApiSource
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddSingleton<ICosmosService, CosmosService>();
 
             var app = builder.Build();
 
