@@ -9,7 +9,7 @@ namespace ApiSource
 
             // Add services to the container.
 
-            //below required for localhost working
+            #region #Cors
             builder.Services.AddCors(options =>
             {
                 options.AddDefaultPolicy(builder =>
@@ -19,7 +19,7 @@ namespace ApiSource
                            .AllowAnyHeader();
                 });
             });
-            //above required for localhost working
+            #endregion #Cors
             builder.Services.AddControllers();
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -35,7 +35,9 @@ namespace ApiSource
                 app.UseSwaggerUI();
                 }
 
-            app.UseCors(); // required for localhost
+            #region #Cors
+            app.UseCors(); // #Cors
+            #endregion #Cors
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
