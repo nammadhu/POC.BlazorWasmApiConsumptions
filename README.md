@@ -1,4 +1,5 @@
-<img width="919" alt="image" src="https://github.com/nammadhu/POC.BlazorWasmApiConsumptions/assets/3640748/313987a3-7733-4a12-aa4c-b64b5eaa1f32">To Consume API on #Blazor Webassembly steps as below (Using DotNet 8.0 versions for all)
+Section1> Blazor webassembly consuming API
+ (Using DotNet 8.0 versions for all)
 
 Create Blazor Wasm with No Authentication
 Create Web Api with No Authentication
@@ -66,9 +67,8 @@ https://stackoverflow.com/questions/68585377/access-to-xmlhttprequest-at-https-l
 
 https://www.freecodecamp.org/news/how-to-implement-azure-serverless-with-blazor-web-assembly/
 
-
-Using Azure Functions with Blazor wasm
-Add Az function 
+Section2> Blazor webassembly consuming Azure Functions
+Add Az functions project to solution 
 <img width="713" alt="image" src="https://github.com/nammadhu/POC.BlazorWasmApiConsumptions/assets/3640748/395352e2-f608-4961-9ce0-18040f1c4013">
 Then it becomes like this,
 <img width="874" alt="image" src="https://github.com/nammadhu/POC.BlazorWasmApiConsumptions/assets/3640748/db90ed49-1196-4273-982c-8da13ecc4672">
