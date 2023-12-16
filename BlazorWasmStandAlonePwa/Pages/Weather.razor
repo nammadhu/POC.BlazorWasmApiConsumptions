@@ -9,7 +9,14 @@
 
 @if (forecasts == null)
     {
-    <p><em>Loading...</em></p>
+    if (!string.IsNullOrEmpty(apiResult))
+        {
+        <p><em>apiResult</em></p>
+        }
+    else
+        {
+        <p><em>Loading...</em></p>
+        }
     }
 else
     {
@@ -37,27 +44,44 @@ else
     </table>
     }
 
-@if (!string.IsNullOrEmpty(message))
+@if (!string.IsNullOrEmpty(azureFunctionResult))
     {
     <h3>Response from Azure function</h3>
-    <label>@message</label>
+    <label>@azureFunctionResult</label>
     }
 
 
 @code {
-    private string message = "";
+    private string azureFunctionResult = "";
+    private string apiResult = "";
     private WeatherForecast[]? forecasts;
 
     protected override async Task OnInitializedAsync()
         {
-        var items = await Http.GetFromJsonAsync<WeatherForecast[]>("https://localhost:7298/WeatherForecast");
-        if (items != null)
-            forecasts = items;//await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
+        try
+            {
+            var items = await Http.GetFromJsonAsync<WeatherForecast[]>("https://localhost:7298/WeatherForecast");
+            if (items != null)
+                forecasts = items;//await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
+            }
+        catch (Exception e)
+            {
+            apiResult = "Api unable to get result info:" + e.ToString();
 
+            }
 
+        try
+            {
         var funcUrl = "http://localhost:7253/api/Function1";
         Console.WriteLine($"Http.GetAsync :{await Http.GetAsync(funcUrl)}");//This will not print content,it just shows 200.success/failure kind of details
-        message = await Http.GetStringAsync(funcUrl);
+        azureFunctionResult = await Http.GetStringAsync(funcUrl);
+            }
+        catch (Exception e)
+            {
+            azureFunctionResult = "azureFunctionResult unable to get result info:" + e.ToString();
+
+            }
+
         }
 
     public class WeatherForecast
