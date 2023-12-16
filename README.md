@@ -12,7 +12,9 @@ On Api Side, By default its like below
 <img width="917" alt="image" src="https://github.com/nammadhu/POC.BlazorWasmApiConsumptions/assets/3640748/91b6277d-d5a8-493b-b33b-0f1c177e5cd2">
 
 Then Try Consuming API by calling at clientside as below,
-<img width="929" alt="image" src="https://github.com/nammadhu/POC.BlazorWasmApiConsumptions/assets/3640748/d7113248-2d14-4703-964e-13d91bf1fc30">
+<img width="896" alt="image" src="https://github.com/nammadhu/POC.BlazorWasmApiConsumptions/assets/3640748/33e1e133-3507-4926-a286-84c3458a3dd8">
+
+
 APi URL can be taken from running instance on browser or cmd prompt
 <img width="793" alt="image" src="https://github.com/nammadhu/POC.BlazorWasmApiConsumptions/assets/3640748/acb255c6-276e-4315-b45a-5b9e098df394">
 Http or Https both as per the needs,
@@ -23,13 +25,12 @@ http://localhost:5161/WeatherForecast
 In BlazorWasm clientside method(ex:Weather.razor)
 @inject HttpClient Http
 ....
- protected override async Task OnInitializedAsync()
- {
-     var items = await Http.GetFromJsonAsync<WeatherForecast[]>("https://localhost:7298/WeatherForecast");
-     if (items != null)
-         Console.WriteLine(items.ToString());
-     forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
- }
+  protected override async Task OnInitializedAsync()
+      {
+      var items = await Http.GetFromJsonAsync<WeatherForecast[]>("https://localhost:7298/WeatherForecast");
+      if (items != null)
+          forecasts = items;//await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
+      }
 
 
 
@@ -39,6 +40,7 @@ Then CORS Error appears as like below,
 
 
 Then Changes required are as below ,
+   
 //below required for localhost working
  builder.Services.AddCors(options =>
  {
