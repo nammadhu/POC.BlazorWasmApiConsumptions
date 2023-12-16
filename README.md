@@ -1,5 +1,4 @@
-#Blazor
-To Consume API on Blazor Webassembly steps as below
+To Consume API on #Blazor Webassembly steps as below (Using DotNet 8.0 versions for all)
 
 Create Blazor Wasm with No Authentication
 Create Web Api with No Authentication
