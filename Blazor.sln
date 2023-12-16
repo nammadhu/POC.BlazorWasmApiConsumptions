@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34407.89
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWasmStandAlonePwa", "BlazorWasmStandAlonePwa\BlazorWasmStandAlonePwa.csproj", "{18B878A6-5374-46E4-A710-8A225089AA2F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiSource", "ApiSource\ApiSource.csproj", "{5508EBCB-1720-4289-9A1A-B3E8C7BB4F32}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{18B878A6-5374-46E4-A710-8A225089AA2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18B878A6-5374-46E4-A710-8A225089AA2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18B878A6-5374-46E4-A710-8A225089AA2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18B878A6-5374-46E4-A710-8A225089AA2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5508EBCB-1720-4289-9A1A-B3E8C7BB4F32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5508EBCB-1720-4289-9A1A-B3E8C7BB4F32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5508EBCB-1720-4289-9A1A-B3E8C7BB4F32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5508EBCB-1720-4289-9A1A-B3E8C7BB4F32}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D65D1E97-99AA-4C71-BAD7-A4FB04E7BD5F}
+	EndGlobalSection
+EndGlobal
