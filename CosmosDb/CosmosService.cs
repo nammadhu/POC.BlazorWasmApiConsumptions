@@ -133,18 +133,16 @@ namespace CosmosDb
             string sql = """
 SELECT
     p.id,
-    p.categoryId,
+    p.categoryid,
     p.categoryName,
     p.sku,
     p.name,
     p.description,
-    p.price,
-    p.tags
+    p.price
 FROM products p
-JOIN t IN p.tags
-WHERE t.name = @tagFilter
+WHERE contains( p.name ,@nameFilter) 
 """;
-            var query = new QueryDefinition(query: sql).WithParameter("@tagFilter", "Tag-75");
+            var query = new QueryDefinition(query: sql).WithParameter("@nameFilter", name);
 
             using FeedIterator<Product> feed = container.GetItemQueryIterator<Product>(queryDefinition: query);
             List<Product> results = [];
