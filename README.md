@@ -13,6 +13,11 @@ On Api Side, By default its like below
 
 Then Try Consuming API by calling at clientside as below,
 <img width="896" alt="image" src="https://github.com/nammadhu/POC.BlazorWasmApiConsumptions/assets/3640748/33e1e133-3507-4926-a286-84c3458a3dd8">
+@inject HttpClient Http
+ .... 
+protected override async Task OnInitializedAsync() { 
+var items = await Http.GetFromJsonAsync<WeatherForecast[]>("https://localhost:7298/WeatherForecast"); if (items != null) forecasts = items;//await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json"); 
+}
 
 
 APi URL can be taken from running instance on browser or cmd prompt
@@ -21,17 +26,6 @@ Http or Https both as per the needs,
 https://localhost:7298/WeatherForecast
 or
 http://localhost:5161/WeatherForecast
-
-In BlazorWasm clientside method(ex:Weather.razor)
-@inject HttpClient Http
-....
-  protected override async Task OnInitializedAsync()
-      {
-      var items = await Http.GetFromJsonAsync<WeatherForecast[]>("https://localhost:7298/WeatherForecast");
-      if (items != null)
-          forecasts = items;//await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
-      }
-
 
 
 Then CORS Error appears as like below,
