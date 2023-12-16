@@ -20,14 +20,14 @@ builder.Services.AddControllers();
 app.UseCors(); // required for localhost
 app.UseHttpsRedirection();
 
-Configure Startup Projects
+Configure Startup Projects both Client Wasm & Api as running
 
 Run it
 
 Get the APi url ,probably using swagger or browser controls like 
 https://localhost:7298/WeatherForecast
 or
-http://localhost:5161
+http://localhost:5161/WeatherForecast
 
 In BlazorWasm clientside method(ex:Weather.razor)
 @inject HttpClient Http
