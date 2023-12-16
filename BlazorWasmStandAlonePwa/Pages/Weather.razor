@@ -8,11 +8,11 @@
 <p>This component demonstrates fetching data from the server.</p>
 
 @if (forecasts == null)
-{
+    {
     <p><em>Loading...</em></p>
-}
+    }
 else
-{
+    {
     <table class="table">
         <thead>
             <tr>
@@ -24,31 +24,31 @@ else
         </thead>
         <tbody>
             @foreach (var forecast in forecasts)
-            {
+                {
                 <tr>
                     <td>@forecast.Date.ToShortDateString()</td>
                     <td>@forecast.TemperatureC</td>
                     <td>@forecast.TemperatureF</td>
                     <td>@forecast.Summary</td>
                 </tr>
-            }
+                }
         </tbody>
     </table>
-}
+    }
 
 @code {
     private WeatherForecast[]? forecasts;
 
     protected override async Task OnInitializedAsync()
-    {
+        {
         var items = await Http.GetFromJsonAsync<WeatherForecast[]>("https://localhost:7298/WeatherForecast");
         if (items != null)
-            Console.WriteLine(items.ToString());
-        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
-    }
+
+            forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
+        }
 
     public class WeatherForecast
-    {
+        {
         public DateOnly Date { get; set; }
 
         public int TemperatureC { get; set; }
@@ -56,5 +56,5 @@ else
         public string? Summary { get; set; }
 
         public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-    }
+        }
 }
