@@ -63,3 +63,5 @@ Then Run & enjoy further as per the need
 
 Continuation of this thread are as below,
 https://stackoverflow.com/questions/68585377/access-to-xmlhttprequest-at-https-login-microsoftonline-com-has-been-blocked-b
+
+https://www.freecodecamp.org/news/how-to-implement-azure-serverless-with-blazor-web-assembly/
