@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace ApiSource.Controllers
     {
@@ -34,7 +35,7 @@ namespace ApiSource.Controllers
             }
 
         [HttpGet(Name = "CosmosDbTest")]
-        public async Task<IEnumerable<WeatherForecast>> CosmosDbTest(string name)
+        public async Task<IEnumerable<CosmosDb.Product?>> CosmosDbTest(string name)
             {
             /*
             Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -53,21 +54,20 @@ namespace ApiSource.Controllers
             Console.WriteLine($"Completed {nameof(_cosmosService.RetrieveAllProductsAsync)}");
             */
             Console.WriteLine("--------------------------------");
+
             Console.WriteLine($"Starting {nameof(_cosmosService.RetrieveAllProductsWithConditionAsync)} with name:{name}");
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
             var results = await _cosmosService.RetrieveAllProductsWithConditionAsync(name);
+            stopwatch.Stop();
+
             foreach (var item in results)
                 {
                 Console.WriteLine($"Found item:\t{item.name},{item}");
                 }
-            Console.WriteLine($"Coompleted {nameof(_cosmosService.RetrieveAllProductsWithConditionAsync)} with name:{name}");
+            Console.WriteLine($"Coompleted {nameof(_cosmosService.RetrieveAllProductsWithConditionAsync)} with name:{name} execution time:{stopwatch.Elapsed}");
 
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-                {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-                })
-            .ToArray();
+            return results;
             }
         }
     }
