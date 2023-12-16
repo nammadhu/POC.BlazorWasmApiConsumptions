@@ -43,8 +43,7 @@ else
         {
         var items = await Http.GetFromJsonAsync<WeatherForecast[]>("https://localhost:7298/WeatherForecast");
         if (items != null)
-
-            forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
+            forecasts = items;//await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
         }
 
     public class WeatherForecast
