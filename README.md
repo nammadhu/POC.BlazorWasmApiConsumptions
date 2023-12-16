@@ -105,3 +105,11 @@ Like Developement.settings.json   or local.settings.json
 <img width="919" alt="image" src="https://github.com/nammadhu/POC.BlazorWasmApiConsumptions/assets/3640748/9f7cc3f5-9a29-4abc-83f8-c9b08bf52b5f">
 
 
+4> To fix CORS issue 2 apporoches usually,
+Temporary Front-End solution so you can test if your API integration is working:
+Click on windows -> type run and hit enter -> in the command window copy:
+chrome.exe --user-data-dir="C://Chrome dev session" --disable-web-security
+This will open a new "Chrome" window where you can work easily. This is a temporary solution. Every time you will have to work with this chrome window.
+
+Permanent solution:
+In the backend code, the developer needs to add an annotation @Crossorigin right above the CRUD api call method.
