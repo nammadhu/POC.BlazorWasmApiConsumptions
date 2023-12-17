@@ -37,7 +37,7 @@ namespace ApiSource.Controllers
         [HttpGet(Name = "CosmosDbTest")]
         public async Task<IEnumerable<CosmosDb.Product?>> CosmosDbTest(string name)
             {
-            /*
+           
             Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             Console.WriteLine($"Starting {nameof(_cosmosService.TestCreateDbContainerAddDataRetrieveFullFlow)}");
             await _cosmosService.TestCreateDbContainerAddDataRetrieveFullFlow();
@@ -52,13 +52,13 @@ namespace ApiSource.Controllers
                 Console.WriteLine($"Found item:\t{item.name},{item}");
                 }
             Console.WriteLine($"Completed {nameof(_cosmosService.RetrieveAllProductsAsync)}");
-            */
+          
             Console.WriteLine("--------------------------------");
 
             Console.WriteLine($"Starting {nameof(_cosmosService.RetrieveAllProductsWithConditionAsync)} with name:{name}");
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-            var results = await _cosmosService.RetrieveAllProductsWithConditionAsync(name);
+            var results1 = await _cosmosService.RetrieveAllProductsWithConditionAsync(name);
             stopwatch.Stop();
 
             foreach (var item in results)
@@ -67,7 +67,7 @@ namespace ApiSource.Controllers
                 }
             Console.WriteLine($"Coompleted {nameof(_cosmosService.RetrieveAllProductsWithConditionAsync)} with name:{name} execution time:{stopwatch.Elapsed}");
 
-            return results;
+            return results1;
             }
         }
     }

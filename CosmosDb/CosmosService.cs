@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +21,12 @@ namespace CosmosDb
     public class CosmosService : ICosmosService
         {
         private readonly CosmosClient _client;
-        private Container container
+        public string _databaseName = "cosmicworks";
+        public string _containerName = "products01";
+        public string  _partitionKeyPath= "/categoryid";
+        private Container Container
             {
-            get => _client.GetDatabase("cosmicworks").GetContainer("products");
+            get => _client.GetDatabase(_databaseName).GetContainer(_containerName);
             }
         public CosmosService(IConfiguration configuration)
             {
@@ -37,7 +41,7 @@ namespace CosmosDb
             // <new_database> 
             // Database reference with creation if it does not already exist
             Database database = await _client.CreateDatabaseIfNotExistsAsync(
-                id: "cosmicworks"
+                id: _databaseName
             );
 
             Console.WriteLine($"New database:\t{database.Id}");
@@ -46,8 +50,8 @@ namespace CosmosDb
             // <new_container> 
             // Container reference with creation if it does not already exist
             Container container = await database.CreateContainerIfNotExistsAsync(
-                id: "products01",
-                partitionKeyPath: "/categoryid",
+                id: _containerName,
+                partitionKeyPath: _partitionKeyPath,
                 throughput: 400
             );
 
@@ -59,37 +63,42 @@ namespace CosmosDb
 
             Product newItem = new Product(id: "baaa4d2d-5ebe-45fb-9a5c-d06876f408e0", categoryid: "61dba35b-4f02-45c5-b648-c6badc0cbd79", categoryName: "Components, Road Frames", sku: "FR-R72R-60", name: "ML Road Frame - Red, 60", description: "The product called ML Road Frame - Red, 60", price: 594.83000000000004m);
 
-            /*
-            Product createdItem = await container.CreateItemAsync<Product>(
-                item: newItem,
-                partitionKey: new PartitionKey("61dba35b-4f02-45c5-b648-c6badc0cbd79")
-            );
-           
-            Console.WriteLine($"Created item:\t{createdItem.id}\t[{createdItem.categoryName}]"); 
-            */
+            if (Debugger.IsAttached)
+                {
+                Product createdItem = await container.CreateItemAsync<Product>(
+                    item: newItem,
+                    partitionKey: new PartitionKey("61dba35b-4f02-45c5-b648-c6badc0cbd79")
+                );
+
+                Console.WriteLine($"Created item:\t{createdItem.id}\t[{createdItem.categoryName}]");
+                }
             // </new_item>
 
-            Product updatedItem = new Product(id: "baaa4d2d-5ebe-45fb-9a5c-d06876f408e0", categoryid: "61dba35b-4f02-45c5-b648-c6badc0cbd79", categoryName: "Components, Road Frames", sku: "FR-R72R-60", name: "ML Road Frame - Red, 60", description: "The product called ML Road Frame - Red, 60" + DateTime.Now.ToString(), price: 594.83000000000004m);
+            Product toUpdateItem = new Product(id: "baaa4d2d-5ebe-45fb-9a5c-d06876f408e0", categoryid: "61dba35b-4f02-45c5-b648-c6badc0cbd79", categoryName: "Components, Road Frames", sku: "FR-R72R-60", name: "ML Road Frame - Red, 60", description: "The product called ML Road Frame - Red, 60" + DateTime.Now.ToString(), price: 594.83000000000004m);
 
-            Product createdItem = await container.UpsertItemAsync<Product>(
-                item: updatedItem,
+            Product updatedItem = await container.UpsertItemAsync<Product>(
+                item: toUpdateItem,
                 partitionKey: new PartitionKey("61dba35b-4f02-45c5-b648-c6badc0cbd79")
             );
 
-            Console.WriteLine($"Updated item:\t{createdItem.id}\t[{createdItem.categoryName}]");
+            Console.WriteLine($"Updated item:\t{updatedItem.id}\t[{updatedItem.categoryName}]");
 
             // <read_item> 
             // Point read item from container using the id and partitionKey
-            Product readItem = await container.ReadItemAsync<Product>(
+            var readItem = await container.ReadItemAsync<Product>(
                 id: "baaa4d2d-5ebe-45fb-9a5c-d06876f408e0",
                 partitionKey: new PartitionKey("61dba35b-4f02-45c5-b648-c6badc0cbd79")
             );
+            if (readItem == null)
+                Console.WriteLine("Item not foind");
+            else
+                Console.WriteLine("Item found...." + readItem);
             // </read_item>
 
             // <query_items> 
             // Create query using a SQL string and parameters
             var query = new QueryDefinition(
-                query: "SELECT * FROM products p WHERE p.categoryid = @categoryid"
+                query: $"SELECT * FROM {_containerName} p WHERE p.categoryid = @categoryid"
             )
                 .WithParameter("@categoryid", "61dba35b-4f02-45c5-b648-c6badc0cbd79");
 
@@ -108,7 +117,7 @@ namespace CosmosDb
             }
         public async Task<IEnumerable<Product>> RetrieveAllProductsAsync()
             {
-            var queryable = container.GetItemLinqQueryable<Product>();
+            var queryable = Container.GetItemLinqQueryable<Product>();
             using FeedIterator<Product> feed = queryable
     //.Where(p => p.price < 2000m)
     //.OrderByDescending(p => p.price)
@@ -130,7 +139,7 @@ namespace CosmosDb
             if (string.IsNullOrEmpty(name) && string.IsNullOrEmpty(description))
                 return await RetrieveAllProductsAsync();
 
-            string sql = """
+            string sql = $"""
 SELECT
     p.id,
     p.categoryid,
@@ -139,12 +148,12 @@ SELECT
     p.name,
     p.description,
     p.price
-FROM products p
+FROM {_containerName} p
 WHERE contains( p.name ,@nameFilter) 
 """;
             var query = new QueryDefinition(query: sql).WithParameter("@nameFilter", name);
 
-            using FeedIterator<Product> feed = container.GetItemQueryIterator<Product>(queryDefinition: query);
+            using FeedIterator<Product> feed = Container.GetItemQueryIterator<Product>(queryDefinition: query);
             List<Product> results = [];
 
             while (feed.HasMoreResults)
