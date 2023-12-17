@@ -39,3 +39,13 @@ In BlazorWasm clientside method(ex:Weather.razor)
          Console.WriteLine(items.ToString());
      forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
  }
+
+
+ https://learn.microsoft.com/en-us/azure/cosmos-db/try-free?tabs=nosql
+ https://github.com/AnkitSharma-007/azure-serverless-with-blazor/blob/master/FAQUIApp/FAQUIApp/Pages/CovidFAQ.razor
+ https://learn.microsoft.com/en-us/events/azure-serverless-azure-serverless-conf/serverless-apps-with-blazor-webassembly-and-azure-static-web-apps
+ https://learn.microsoft.com/en-us/azure/azure-functions/functions-dotnet-dependency-injection
+ https://learn.microsoft.com/en-us/azure/cosmos-db/nosql/tutorial-dotnet-web-app
+ https://learn.microsoft.com/en-us/azure/cosmos-db/nosql/how-to-dotnet-get-started?tabs=azure-cli%2Cwindows
+
+ https://github.com/Azure-Samples/cosmos-db-nosql-dotnet-samples/blob/main/300-query-items/Program.cs

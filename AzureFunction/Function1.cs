@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 
 namespace AzureFunction
 {
+    //https://learn.microsoft.com/en-us/azure/azure-functions/functions-dotnet-dependency-injection
     public static class Function1
     {
         [FunctionName("Function1")]
