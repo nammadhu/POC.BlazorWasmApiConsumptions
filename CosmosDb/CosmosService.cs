@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace CosmosDb
     {
+    //https://learn.microsoft.com/en-us/azure/cosmos-db/nosql/tutorial-dotnet-web-app
     public interface ICosmosService
         {
         Task TestCreateDbContainerAddDataRetrieveFullFlow();
